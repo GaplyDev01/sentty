@@ -4,6 +4,7 @@ import LoadingSpinner from '../ui/LoadingSpinner';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import { Filter, RefreshCw, Grid, Layers, ArrowDownWideNarrow, SortAsc } from 'lucide-react';
+import CoinDeskRssFeed from '../ui/CoinDeskRssFeed';
 import type { Article } from '../../types/newsapi';
 
 interface ArticleListProps {
@@ -16,6 +17,7 @@ interface ArticleListProps {
   onFilterChange?: (filters: ArticleFilters) => void;
   totalCount?: number;
   onArticleRemoved?: () => void; // Callback when an article is removed (e.g. bookmark removed)
+  showCoinDeskPanel?: boolean;
 }
 
 export interface ArticleFilters {
@@ -34,7 +36,8 @@ const ArticleList: React.FC<ArticleListProps> = ({
   categories = [],
   onFilterChange,
   totalCount,
-  onArticleRemoved
+  onArticleRemoved,
+  showCoinDeskPanel = false
 }) => {
   const { ref, inView } = useInView({
     threshold: 0,
@@ -194,7 +197,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
           <div className="flex flex-wrap gap-4">
             {/* Category filter */}
             <div className="space-y-2 flex-1">
-              <label className="text-sm font-medium text-gray-400">Category</label>
+              <label className="block text-sm font-medium text-gray-400 mb-1">Category</label>
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => handleFilterChange({ category: undefined })}
@@ -248,7 +251,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
             
             {/* Sort filter */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-400">Sort By</label>
+              <label className="block text-sm font-medium text-gray-400 mb-1">Sort By</label>
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => handleFilterChange({ sortBy: 'relevance' })}
@@ -274,7 +277,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
             
             {/* Time filter */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-400">Time Frame</label>
+              <label className="block text-sm font-medium text-gray-400 mb-1">Time Frame</label>
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => handleFilterChange({ timeFrame: 'day' })}
@@ -315,6 +318,13 @@ const ArticleList: React.FC<ArticleListProps> = ({
             </div>
           </div>
         </motion.div>
+      )}
+      
+      {/* CoinDesk News Panel - can be toggled on/off */}
+      {showCoinDeskPanel && (
+        <div className="mb-8">
+          <CoinDeskRssFeed />
+        </div>
       )}
       
       {/* Article grid */}

@@ -6,7 +6,7 @@ import FireCrawlSettings from './FireCrawlSettings';
 import CryptoIntegrationsManager from './CryptoIntegrationsManager';
 
 const SystemSettings: React.FC = () => {
-  const [siteName, setSiteName] = useState('SophIQ');
+  const [siteName, setSiteName] = useState('Sentro');
   const [defaultCategory, setDefaultCategory] = useState('all');
   const [saving, setSaving] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);

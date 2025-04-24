@@ -64,13 +64,13 @@ const NewsTicker: React.FC<NewsTickerProps> = ({ className = '' }) => {
   const [highlightedItems, setHighlightedItems] = useState<Set<number>>(new Set());
   const tickerRef = useRef<HTMLDivElement>(null);
 
-  // Fetch news from the Reuters RSS feed JSON
+  // Fetch news from the Netlify-fetched Reuters feed
   useEffect(() => {
     const fetchNews = async () => {
       try {
         setLoading(true);
         
-        // First try to fetch local JSON file
+        // First try to fetch local JSON file fetched by Netlify plugin
         try {
           const response = await fetch('/feeds/reuters-topnews.json');
           
@@ -102,10 +102,53 @@ const NewsTicker: React.FC<NewsTickerProps> = ({ className = '' }) => {
         } catch (localError) {
           console.warn('Could not load local feed:', localError);
           
-          // Use fallback news instead of trying proxies that are likely to fail
-          console.log('Using fallback news data instead of attempting proxy requests');
-          setNews(FALLBACK_NEWS);
-          return;
+          // Try to fetch from the RSS.app URL directly if local fails
+          try {
+            const response = await fetch('https://rss.app/feeds/_LGUsXhQQjR11Xad5.xml');
+            
+            if (!response.ok) {
+              throw new Error(`RSS.app feed unavailable: ${response.status}`);
+            }
+            
+            // Parse the XML response
+            const text = await response.text();
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(text, "text/xml");
+            
+            // Extract items from the XML
+            const items = xmlDoc.querySelectorAll('item');
+            const processedItems: NewsItem[] = [];
+            
+            items.forEach((item, index) => {
+              const title = item.querySelector('title')?.textContent || '';
+              const link = item.querySelector('link')?.textContent || '';
+              const pubDate = item.querySelector('pubDate')?.textContent || '';
+              const description = item.querySelector('description')?.textContent || '';
+              
+              if (title && link) {
+                processedItems.push({
+                  title,
+                  link,
+                  pubDate,
+                  description,
+                  category: getRandomCategory(),
+                  isHighImpact: index % 4 === 0
+                });
+              }
+            });
+            
+            if (processedItems.length > 0) {
+              setNews(processedItems);
+              console.log('Successfully loaded RSS.app feed');
+              return; // Exit if successful
+            } else {
+              throw new Error('No items found in RSS feed');
+            }
+          } catch (rssError) {
+            console.warn('Could not load RSS.app feed:', rssError);
+            // Fall back to default news
+            setNews(FALLBACK_NEWS);
+          }
         }
       } catch (err) {
         console.error('Error fetching news:', err);

@@ -1,0 +1,111 @@
+{
+  "title": "Impact News Feed",
+  "description": "Latest news updates focusing on social impact and sustainability",
+  "link": "https://rss.app/feeds/v1.1/_odXmUWvOS88olvY1.json",
+  "items": [
+    {
+      "title": "Clean energy investments surge as countries race to meet climate targets",
+      "link": "https://www.reuters.com/sustainability/climate-energy/clean-energy-investments-2024-10-25/",
+      "pubDate": "2024-10-25T13:45:20.000Z",
+      "content": "<p><img src='https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop' alt='Solar panels and wind turbines'/></p><p>Global investments in clean energy technologies have reached a record $1.3 trillion in 2024, according to new data released today. This represents a 15% increase compared to the previous year as countries accelerate efforts to meet their climate commitments under the Paris Agreement.</p>",
+      "contentSnippet": "Global investments in clean energy technologies have reached a record $1.3 trillion in 2024, according to new data released today. This represents a 15% increase compared to the previous year as countries accelerate efforts to meet their climate commitments under the Paris Agreement.",
+      "categories": ["Environment", "Climate Action", "Renewable Energy"],
+      "creator": "Reuters Sustainability",
+      "enclosure": {
+        "url": "https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Community-led conservation program shows promising results in biodiversity protection",
+      "link": "https://www.reuters.com/sustainability/biodiversity/community-conservation-program-2024-10-24/",
+      "pubDate": "2024-10-24T09:30:15.000Z",
+      "content": "<p><img src='https://images.unsplash.com/photo-1551617489-25aa9b1053c3?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop' alt='Community forest conservation'/></p><p>A pioneering conservation initiative that puts local communities at the forefront of environmental protection efforts has reported significant gains in biodiversity preservation across three continents, challenging traditional top-down conservation approaches.</p>",
+      "contentSnippet": "A pioneering conservation initiative that puts local communities at the forefront of environmental protection efforts has reported significant gains in biodiversity preservation across three continents, challenging traditional top-down conservation approaches.",
+      "categories": ["Conservation", "Community", "Biodiversity"],
+      "creator": "Environmental Report",
+      "enclosure": {
+        "url": "https://images.unsplash.com/photo-1551617489-25aa9b1053c3?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Social impact startups attract record venture funding despite economic headwinds",
+      "link": "https://www.reuters.com/business/sustainable-business/social-impact-startups-funding-2024-10-23/",
+      "pubDate": "2024-10-23T16:20:40.000Z",
+      "content": "<p><img src='https://images.unsplash.com/photo-1573164574572-cb89e39749b4?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop' alt='Social entrepreneurs in a meeting'/></p><p>Venture capital investments in startups addressing social and environmental challenges have reached $45 billion globally in the first three quarters of 2024, surpassing last year's total despite broader market uncertainties and funding slowdowns in the tech sector.</p>",
+      "contentSnippet": "Venture capital investments in startups addressing social and environmental challenges have reached $45 billion globally in the first three quarters of 2024, surpassing last year's total despite broader market uncertainties and funding slowdowns in the tech sector.",
+      "categories": ["Business", "Social Enterprise", "Sustainable Finance"],
+      "creator": "Impact Investing Journal",
+      "enclosure": {
+        "url": "https://images.unsplash.com/photo-1573164574572-cb89e39749b4?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Major corporations form alliance to address plastic pollution in supply chains",
+      "link": "https://www.reuters.com/sustainability/pollution-waste/corporate-plastic-pollution-alliance-2024-10-22/",
+      "pubDate": "2024-10-22T11:45:30.000Z",
+      "content": "<p><img src='https://images.unsplash.com/photo-1605600659726-63460419a2af?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop' alt='Plastic waste collection'/></p><p>A coalition of 28 multinational companies from various sectors has launched an unprecedented initiative to eliminate single-use plastics from their global supply chains by 2030, committing $2 billion to develop sustainable alternatives and improve waste management infrastructure.</p>",
+      "contentSnippet": "A coalition of 28 multinational companies from various sectors has launched an unprecedented initiative to eliminate single-use plastics from their global supply chains by 2030, committing $2 billion to develop sustainable alternatives and improve waste management infrastructure.",
+      "categories": ["Pollution", "Corporate Responsibility", "Circular Economy"],
+      "creator": "Sustainability Today",
+      "enclosure": {
+        "url": "https://images.unsplash.com/photo-1605600659726-63460419a2af?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "New sustainable housing initiative aims to address affordability crisis in urban areas",
+      "link": "https://www.reuters.com/sustainability/social-impact/affordable-housing-initiative-2024-10-21/",
+      "pubDate": "2024-10-21T14:15:50.000Z",
+      "content": "<p><img src='https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop' alt='Sustainable housing development'/></p><p>A groundbreaking partnership between government agencies, impact investors, and community organizations has launched a $500 million fund to develop sustainable, energy-efficient affordable housing in ten major cities facing severe housing shortages.</p>",
+      "contentSnippet": "A groundbreaking partnership between government agencies, impact investors, and community organizations has launched a $500 million fund to develop sustainable, energy-efficient affordable housing in ten major cities facing severe housing shortages.",
+      "categories": ["Housing", "Urban Development", "Social Impact"],
+      "creator": "Urban Solutions Report",
+      "enclosure": {
+        "url": "https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Breakthrough in sustainable agriculture could revolutionize food production",
+      "link": "https://www.reuters.com/sustainability/food-agriculture/sustainable-agriculture-breakthrough-2024-10-20/",
+      "pubDate": "2024-10-20T09:30:10.000Z",
+      "content": "<p><img src='https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop' alt='Advanced vertical farming'/></p><p>Researchers have developed a new agricultural system that combines vertical farming technology with regenerative practices, showing a 300% increase in yields while using 95% less water and eliminating the need for chemical pesticides and fertilizers.</p>",
+      "contentSnippet": "Researchers have developed a new agricultural system that combines vertical farming technology with regenerative practices, showing a 300% increase in yields while using 95% less water and eliminating the need for chemical pesticides and fertilizers.",
+      "categories": ["Agriculture", "Food Systems", "Innovation"],
+      "creator": "Future Food Initiative",
+      "enclosure": {
+        "url": "https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Global education initiative connects students across 50 countries to solve climate challenges",
+      "link": "https://www.reuters.com/sustainability/education/global-student-climate-initiative-2024-10-19/",
+      "pubDate": "2024-10-19T15:45:25.000Z",
+      "content": "<p><img src='https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop' alt='Students collaborating on climate solutions'/></p><p>An innovative educational program has connected over 100,000 students from 50 countries to collaborate on designing and implementing local climate solutions, with several student-led projects already receiving implementation funding from international organizations.</p>",
+      "contentSnippet": "An innovative educational program has connected over 100,000 students from 50 countries to collaborate on designing and implementing local climate solutions, with several student-led projects already receiving implementation funding from international organizations.",
+      "categories": ["Education", "Youth Engagement", "Climate Solutions"],
+      "creator": "Education Innovation Report",
+      "enclosure": {
+        "url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Renewable energy now cheaper than fossil fuels in over 100 countries, report finds",
+      "link": "https://www.reuters.com/sustainability/energy-transition/renewable-energy-costs-global-report-2024-10-18/",
+      "pubDate": "2024-10-18T10:20:15.000Z",
+      "content": "<p><img src='https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop' alt='Wind farm at sunrise'/></p><p>A comprehensive new analysis reveals that renewable energy has become the most cost-effective source of electricity in more than 100 countries, representing over 85% of global energy consumption, marking a historic tipping point in the global energy transition.</p>",
+      "contentSnippet": "A comprehensive new analysis reveals that renewable energy has become the most cost-effective source of electricity in more than 100 countries, representing over 85% of global energy consumption, marking a historic tipping point in the global energy transition.",
+      "categories": ["Energy", "Climate", "Economics"],
+      "creator": "Global Energy Watch",
+      "enclosure": {
+        "url": "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-1.2.1&q=80&w=800&auto=format&fit=crop",
+        "type": "image/jpeg"
+      }
+    }
+  ]
+}

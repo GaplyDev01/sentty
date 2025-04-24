@@ -36,7 +36,7 @@ async function updateCryptoSettings(req: Request) {
     const settings = {
       // CryptoPanic settings
       cryptopanic_enabled: true,
-      cryptopanic_api_key: 'CRYPTO_PANIC_API-6468dfe197ff8865c8c7e3db0040587b4c28f7af',
+      cryptopanic_api_key: '6468dfe197ff8865c8c7e3db0040587b4c28f7af',
       cryptopanic_rate_limited: false,
       
       // FireCrawl settings

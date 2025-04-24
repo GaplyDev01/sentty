@@ -9,6 +9,7 @@ interface TestimonialCardProps {
   avatar: string;
   index: number;
   isHighlighted?: boolean;
+  onClick?: () => void;
 }
 
 const TestimonialCard: React.FC<TestimonialCardProps> = ({
@@ -17,27 +18,26 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   title,
   avatar,
   index,
-  isHighlighted = false
+  isHighlighted = false,
+  onClick
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   
-  // Motion values for tracking mouse position
+  // Motion values for tracking mouse position - ALWAYS create these
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
   // Spring configuration for smoother animations
   const springConfig = { damping: 20, stiffness: 300 };
   
-  // Transform mouse position into rotation values
+  // ALWAYS create all transforms, regardless of hover state
   const rotateX = useSpring(useTransform(mouseY, [0, 1], [5, -5]), springConfig);
   const rotateY = useSpring(useTransform(mouseX, [0, 1], [-5, 5]), springConfig);
-  
-  // Transform for card hover effects
   const scale = useSpring(isHovered ? 1.03 : 1, springConfig);
   const y = useSpring(isHovered ? -8 : 0, springConfig);
   
-  // Pre-compute transforms for author section to avoid conditional hook calls
+  // ALWAYS create author transforms, regardless of hover state
   const authorX = useTransform(mouseX, [-1, 1], [-3, 3]);
   const authorY = useTransform(mouseY, [-1, 1], [-2, 2]);
   
@@ -70,6 +70,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.1 * index }}
       style={{
+        // Apply transforms conditionally, but ALWAYS create the transforms above
         rotateX: isHovered ? rotateX : 0,
         rotateY: isHovered ? rotateY : 0,
         scale,
@@ -81,6 +82,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
       className={`
         rounded-xl overflow-hidden backdrop-blur-sm shadow-lg relative cursor-pointer
         ${isHighlighted 
@@ -105,11 +107,10 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         {/* Quote text */}
         <p className="text-gray-300 mb-6 relative z-10">&ldquo;{quote}&rdquo;</p>
         
-        {/* Author info */}
+        {/* Author info - Apply transforms conditionally */}
         <motion.div 
           className="flex items-center"
           style={{
-            // Use pre-computed transforms and conditionally apply them
             x: isHovered ? authorX : 0,
             y: isHovered ? authorY : 0
           }}
@@ -127,10 +128,9 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         </motion.div>
       </div>
       
-      {/* Always render the gradient overlay but conditionally set its opacity */}
+      {/* Background gradient overlay - Always render with conditional opacity */}
       <motion.div 
         className="absolute inset-0 -z-10 opacity-0"
-        initial={{ opacity: 0 }}
         animate={{ 
           opacity: isHovered ? (isHighlighted ? 0.3 : 0.15) : 0 
         }}

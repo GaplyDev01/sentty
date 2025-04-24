@@ -1,0 +1,98 @@
+{
+  "title": "Reuters Top News",
+  "description": "Top news and headlines from Reuters",
+  "link": "https://www.reuters.com/",
+  "items": [
+    {
+      "title": "Wall Street poised for weekly gain as investors assess earnings, data",
+      "link": "https://www.reuters.com/markets/global-markets-wrapup-1-pix-2024-10-25/",
+      "pubDate": "2024-10-25T14:29:40.000Z",
+      "creator": "Reuters Staff",
+      "content": "<p><img alt=\"\" height=\"auto\" src=\"https://www.reuters.com/graphics/FINSERV-US/WALL%20STREET/jnvqyjgngvq/media-5ab75a5a27874f61a4a57b3cf3b2f03d.JPG\" width=\"100%\"/></p><p>NEW YORK, Oct 25 (Reuters) - U.S. stocks rose on Friday, with the S&P 500 on track for a weekly gain, as investors digested the latest batch of corporate earnings in the middle of a policy-sensitive week filled with economic data that showed continuing signs of economic resilience and easing price pressures.</p>",
+      "contentSnippet": "NEW YORK, Oct 25 (Reuters) - U.S. stocks rose on Friday, with the S&P 500 on track for a weekly gain, as investors digested the latest batch of corporate earnings in the middle of a policy-sensitive week filled with economic data that showed continuing signs of economic resilience and easing price pressures.",
+      "categories": ["Markets"],
+      "enclosure": {
+        "url": "https://www.reuters.com/graphics/FINSERV-US/WALL%20STREET/jnvqyjgngvq/media-5ab75a5a27874f61a4a57b3cf3b2f03d.JPG",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Israel launches strike on school in Gaza, says Hamas was running operations center there",
+      "link": "https://www.reuters.com/world/middle-east/israel-launches-strike-school-gaza-says-hamas-was-running-operations-center-2024-10-25/",
+      "pubDate": "2024-10-25T13:26:54.000Z",
+      "creator": "Reuters Staff",
+      "content": "<p><img alt=\"\" height=\"auto\" src=\"https://www.reuters.com/resizer/QHdmLqPTDMT1d8-O0_YwPTtVPnI=/1920x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/QZUIZWQZBVRQPEMZQWGSZD5UWA.jpg\" width=\"100%\"/></p><p>GAZA/JERUSALEM, Oct 25 (Reuters) - Israel's military carried out an air strike on a school in Gaza City on Friday, saying Hamas militants were operating a command and control center there, as residents gathered in the school to protect themselves from Israeli bombardment elsewhere.</p>",
+      "contentSnippet": "GAZA/JERUSALEM, Oct 25 (Reuters) - Israel's military carried out an air strike on a school in Gaza City on Friday, saying Hamas militants were operating a command and control center there, as residents gathered in the school to protect themselves from Israeli bombardment elsewhere.",
+      "categories": ["World"],
+      "enclosure": {
+        "url": "https://www.reuters.com/resizer/QHdmLqPTDMT1d8-O0_YwPTtVPnI=/1920x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/QZUIZWQZBVRQPEMZQWGSZD5UWA.jpg",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Energy-sipping AI chips poised to challenge Nvidia, analysts say",
+      "link": "https://www.reuters.com/technology/energy-sipping-ai-chips-poised-challenge-nvidia-analysts-say-2024-10-25/",
+      "pubDate": "2024-10-25T12:16:34.000Z",
+      "creator": "Reuters Staff",
+      "content": "<p><img alt=\"\" height=\"auto\" src=\"https://www.reuters.com/resizer/q0zAKS9tgdHLYUZCmQKfXnXjVAU=/1920x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/YVPZPHBXTROG7EJE5JB5EYS35A.jpg\" width=\"100%\"/></p><p>Oct 25 (Reuters) - Microsoft, Meta Platforms and Amazon.com have begun deploying specially designed semiconductors for artificial-intelligence tasks that consume less energy, a development that could weaken Nvidia's grip on the market, industry analysts say.</p>",
+      "contentSnippet": "Oct 25 (Reuters) - Microsoft, Meta Platforms and Amazon.com have begun deploying specially designed semiconductors for artificial-intelligence tasks that consume less energy, a development that could weaken Nvidia's grip on the market, industry analysts say.",
+      "categories": ["Technology"],
+      "enclosure": {
+        "url": "https://www.reuters.com/resizer/q0zAKS9tgdHLYUZCmQKfXnXjVAU=/1920x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/YVPZPHBXTROG7EJE5JB5EYS35A.jpg",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "How climate change is reshaping global investment strategies",
+      "link": "https://www.reuters.com/sustainability/climate-change-investment-strategies-2024-10-25/",
+      "pubDate": "2024-10-25T11:45:23.000Z",
+      "creator": "Reuters Staff",
+      "content": "<p><img alt=\"\" height=\"auto\" src=\"https://www.reuters.com/resizer/HsWKVJzCDFXn83Vr36uW3Z_GrWA=/1920x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/LMN5OPQK3VOJTEP4ZXGBYD5UWA.jpg\" width=\"100%\"/></p><p>LONDON, Oct 25 (Reuters) - Investment firms are rapidly adapting their strategies to account for climate change impacts, with sustainable investments reaching record levels as extreme weather events increasingly disrupt global markets and supply chains.</p>",
+      "contentSnippet": "LONDON, Oct 25 (Reuters) - Investment firms are rapidly adapting their strategies to account for climate change impacts, with sustainable investments reaching record levels as extreme weather events increasingly disrupt global markets and supply chains.",
+      "categories": ["Sustainability"],
+      "enclosure": {
+        "url": "https://www.reuters.com/resizer/HsWKVJzCDFXn83Vr36uW3Z_GrWA=/1920x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/LMN5OPQK3VOJTEP4ZXGBYD5UWA.jpg",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Community-led conservation efforts show promising results in wildlife protection",
+      "link": "https://www.reuters.com/sustainability/community-conservation-wildlife-protection-2024-10-25/",
+      "pubDate": "2024-10-25T10:30:15.000Z",
+      "creator": "Reuters Staff",
+      "content": "<p><img alt=\"\" height=\"auto\" src=\"https://www.reuters.com/resizer/KfDgHjCmP9QnR5VrO6uW3Z_GrWA=/1920x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/PQRST5UVW3VOJTEP4ZXG5YD5UWA.jpg\" width=\"100%\"/></p><p>NAIROBI, Oct 25 (Reuters) - Community-led conservation initiatives are showing significant success in protecting endangered wildlife species across Africa and Asia, according to new research published today, highlighting the importance of local involvement in biodiversity preservation efforts.</p>",
+      "contentSnippet": "NAIROBI, Oct 25 (Reuters) - Community-led conservation initiatives are showing significant success in protecting endangered wildlife species across Africa and Asia, according to new research published today, highlighting the importance of local involvement in biodiversity preservation efforts.",
+      "categories": ["Sustainability"],
+      "enclosure": {
+        "url": "https://www.reuters.com/resizer/KfDgHjCmP9QnR5VrO6uW3Z_GrWA=/1920x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/PQRST5UVW3VOJTEP4ZXG5YD5UWA.jpg",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Renewable energy investment reaches record high in developing economies",
+      "link": "https://www.reuters.com/sustainability/renewable-energy-investment-developing-economies-2024-10-24/",
+      "pubDate": "2024-10-24T16:20:45.000Z",
+      "creator": "Reuters Staff",
+      "content": "<p><img alt=\"\" height=\"auto\" src=\"https://www.reuters.com/resizer/LsWKVJzCDFXn83Vr36uW3Z_GrWA=/1920x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/XYZ5OPQK3VOJTEP4ZXG5YD5UWA.jpg\" width=\"100%\"/></p><p>SINGAPORE, Oct 24 (Reuters) - Investment in renewable energy projects across developing economies has reached a record $165 billion in the past year, surpassing fossil fuel investments for the first time, according to a new report from the International Energy Agency.</p>",
+      "contentSnippet": "SINGAPORE, Oct 24 (Reuters) - Investment in renewable energy projects across developing economies has reached a record $165 billion in the past year, surpassing fossil fuel investments for the first time, according to a new report from the International Energy Agency.",
+      "categories": ["Sustainability"],
+      "enclosure": {
+        "url": "https://www.reuters.com/resizer/LsWKVJzCDFXn83Vr36uW3Z_GrWA=/1920x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/XYZ5OPQK3VOJTEP4ZXG5YD5UWA.jpg",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Social impact bonds gain traction as innovative funding model for public services",
+      "link": "https://www.reuters.com/business/sustainable-business/social-impact-bonds-public-services-2024-10-24/",
+      "pubDate": "2024-10-24T14:45:32.000Z",
+      "creator": "Reuters Staff",
+      "content": "<p><img alt=\"\" height=\"auto\" src=\"https://www.reuters.com/resizer/MnWKVJzCDFXn83Vr36uW3Z_GrWA=/1920x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/ABC5OPQK3VOJTEP4ZXG5YD5UWA.jpg\" width=\"100%\"/></p><p>LONDON, Oct 24 (Reuters) - Social impact bonds are gaining momentum as an innovative funding model for public services, with new data showing over $500 million invested globally in outcomes-based contracts that tie financial returns to measurable social improvements.</p>",
+      "contentSnippet": "LONDON, Oct 24 (Reuters) - Social impact bonds are gaining momentum as an innovative funding model for public services, with new data showing over $500 million invested globally in outcomes-based contracts that tie financial returns to measurable social improvements.",
+      "categories": ["Business"],
+      "enclosure": {
+        "url": "https://www.reuters.com/resizer/MnWKVJzCDFXn83Vr36uW3Z_GrWA=/1920x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/ABC5OPQK3VOJTEP4ZXG5YD5UWA.jpg",
+        "type": "image/jpeg"
+      }
+    }
+  ]
+}

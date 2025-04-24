@@ -3,10 +3,14 @@ import { useAuth } from '../contexts/AuthContext';
 import ArticleList from '../components/articles/ArticleList';
 import RecommendationBanner from '../components/articles/RecommendationBanner';
 import { getArticles, rankArticlesForUser, getAvailableCategories } from '../services/articleService';
-import { TrendingUp, Clock, Siren as Fire, Filter, RefreshCw } from 'lucide-react';
+import { TrendingUp, Clock, Siren as Fire, Filter, RefreshCw, Grid, Layers, ArrowDownWideNarrow } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { debounce } from '../utils/cacheUtils';
 import HighlightedNewsBanner from '../components/ui/HighlightedNewsBanner';
+import ImpactNewsFeed from '../components/ui/ImpactNewsFeed';
+import CoinDeskRssFeed from '../components/ui/CoinDeskRssFeed';
+import ImpactNewsPanel from '../components/dashboard/ImpactNewsPanel';
+import CryptoDashboard from '../components/dashboard/CryptoDashboard';
 import type { Article } from '../types/newsapi';
 import type { ArticleFilters } from '../components/articles/ArticleList';
 
@@ -279,14 +283,15 @@ const HomePage: React.FC = () => {
     }
   }, [activeTab]);
 
+  // Debounced filter change handler
+  const handleFilterChange = (newFilters: ArticleFilters) => {
+    debouncedFilterChange(newFilters);
+  };
+
   const handleLoadMore = () => {
     if (!loading[activeTab as keyof typeof loading] && !fetchingRef.current) {
       setPage(prevPage => prevPage + 1);
     }
-  };
-
-  const handleFilterChange = (newFilters: ArticleFilters) => {
-    debouncedFilterChange(newFilters);
   };
 
   const isLoading = () => {
@@ -358,6 +363,18 @@ const HomePage: React.FC = () => {
       {/* Highlighted news banner */}
       <HighlightedNewsBanner newsItems={HIGHLIGHTED_NEWS} className="mb-6" />
       
+      {/* Impact News Panel */}
+      <ImpactNewsPanel className="mb-8" />
+      
+      {/* Crypto Dashboard */}
+      <CryptoDashboard className="mb-8" />
+
+      {/* RSS Feed Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <ImpactNewsFeed limit={3} showTitle={true} />
+        <CoinDeskRssFeed limit={3} showTitle={true} />
+      </div>
+      
       {error && (
         <div className="bg-red-900/20 border border-red-800/30 rounded-lg p-4 text-red-300 flex items-center justify-between">
           <div>{error}</div>
@@ -422,6 +439,7 @@ const HomePage: React.FC = () => {
         categories={categories}
         onFilterChange={handleFilterChange}
         totalCount={totalCount}
+        showCoinDeskPanel={false} // Using the dedicated panels instead
       />
     </div>
   );

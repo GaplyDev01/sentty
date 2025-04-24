@@ -1,0 +1,98 @@
+{
+  "title": "CoinDesk: Bitcoin, Ethereum, Crypto News and Price Data",
+  "description": "Leader in cryptocurrency, Bitcoin, Ethereum, XRP, blockchain, DeFi, digital finance and Web3 news with analysis, video and live price updates.",
+  "link": "https://www.coindesk.com",
+  "items": [
+    {
+      "title": "Bitcoin Surpasses $77K as Demand for Spot ETFs Grows",
+      "link": "https://www.coindesk.com/markets/2024/10/25/bitcoin-surpasses-77k-as-demand-for-spot-etfs-grows/",
+      "pubDate": "Fri, 25 Oct 2024 09:15:36 +0000",
+      "creator": "Nick Baker",
+      "content": "<p><img src=\"https://www.coindesk.com/resizer/Dp_BbOYB8BV0MIUCwcxh96nzJ1Q=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/AQSOPGN32ZEIPCNPOMNVZWVWCI.jpg\" alt=\"Bitcoin (BTC) has surpassed $77,000 as spot ETF demand continues to increase.\" /></p><p>Bitcoin's price surged past $77,000 on Friday, reaching a new all-time high as institutional demand for spot Bitcoin ETFs continues to grow rapidly, with net inflows exceeding $2 billion over the past week alone.</p>",
+      "contentSnippet": "Bitcoin's price surged past $77,000 on Friday, reaching a new all-time high as institutional demand for spot Bitcoin ETFs continues to grow rapidly, with net inflows exceeding $2 billion over the past week alone.",
+      "categories": ["Bitcoin", "Markets", "ETF"],
+      "enclosure": {
+        "url": "https://www.coindesk.com/resizer/Dp_BbOYB8BV0MIUCwcxh96nzJ1Q=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/AQSOPGN32ZEIPCNPOMNVZWVWCI.jpg",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Ethereum Developers Approve Critical Upgrade for Q1 2025",
+      "link": "https://www.coindesk.com/tech/2024/10/25/ethereum-developers-approve-critical-upgrade-for-q1-2025/",
+      "pubDate": "Fri, 25 Oct 2024 08:30:45 +0000",
+      "creator": "Jamie Redman",
+      "content": "<p><img src=\"https://www.coindesk.com/resizer/XE1A3_8YW8A9h1zZIJvgDf7oGPw=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/LWFJXIEOEFE2ZFUYRPWSWQPBXM.jpg\" alt=\"Ethereum (ETH) developers have approved a significant network upgrade for early 2025.\" /></p><p>Ethereum core developers have approved a major network upgrade scheduled for Q1 2025 that aims to significantly improve scalability, reduce gas fees, and enhance the network's security model through innovative cryptographic techniques.</p>",
+      "contentSnippet": "Ethereum core developers have approved a major network upgrade scheduled for Q1 2025 that aims to significantly improve scalability, reduce gas fees, and enhance the network's security model through innovative cryptographic techniques.",
+      "categories": ["Ethereum", "Technology", "Development"],
+      "enclosure": {
+        "url": "https://www.coindesk.com/resizer/XE1A3_8YW8A9h1zZIJvgDf7oGPw=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/LWFJXIEOEFE2ZFUYRPWSWQPBXM.jpg",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "SEC Approves First Ethereum ETFs with Staking Capabilities",
+      "link": "https://www.coindesk.com/policy/2024/10/24/sec-approves-first-ethereum-etfs-with-staking-capabilities/",
+      "pubDate": "Thu, 24 Oct 2024 19:15:22 +0000",
+      "creator": "Jack Robinson",
+      "content": "<p><img src=\"https://www.coindesk.com/resizer/QP8T4GzEGTTfkgKDY6JsETXFQz0=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/J3PMJYUWIZGC7GV5PLWDX3PMIM.jpg\" alt=\"The SEC has approved the first Ethereum ETFs with staking capabilities.\" /></p><p>In a landmark decision, the U.S. Securities and Exchange Commission has approved the first Ethereum ETFs that include staking capabilities, allowing investors to earn passive income through the financial products while maintaining regulatory compliance.</p>",
+      "contentSnippet": "In a landmark decision, the U.S. Securities and Exchange Commission has approved the first Ethereum ETFs that include staking capabilities, allowing investors to earn passive income through the financial products while maintaining regulatory compliance.",
+      "categories": ["Ethereum", "Policy", "ETF", "Regulation"],
+      "enclosure": {
+        "url": "https://www.coindesk.com/resizer/QP8T4GzEGTTfkgKDY6JsETXFQz0=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/J3PMJYUWIZGC7GV5PLWDX3PMIM.jpg",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Digital Asset Firms Commit $200M to Fund Environmental Impact Projects",
+      "link": "https://www.coindesk.com/business/2024/10/24/digital-asset-firms-commit-200m-to-fund-environmental-impact-projects/",
+      "pubDate": "Thu, 24 Oct 2024 16:30:10 +0000",
+      "creator": "Sarah Johnson",
+      "content": "<p><img src=\"https://www.coindesk.com/resizer/bPL9XZg7LJ8e_ZIHmYwlB83LPFs=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/UWRKQYVQOFGAPHWQBVMYJS4FPA.jpg\" alt=\"Major digital asset firms have committed $200 million to fund environmental impact projects.\" /></p><p>A coalition of leading cryptocurrency and blockchain firms has committed $200 million to fund environmental impact projects globally, aiming to offset the industry's carbon footprint and support sustainable development initiatives.</p>",
+      "contentSnippet": "A coalition of leading cryptocurrency and blockchain firms has committed $200 million to fund environmental impact projects globally, aiming to offset the industry's carbon footprint and support sustainable development initiatives.",
+      "categories": ["Business", "ESG", "Environmental", "Sustainability"],
+      "enclosure": {
+        "url": "https://www.coindesk.com/resizer/bPL9XZg7LJ8e_ZIHmYwlB83LPFs=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/UWRKQYVQOFGAPHWQBVMYJS4FPA.jpg",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Solana-Based Social Impact DAO Raises $15M for Global Education Initiatives",
+      "link": "https://www.coindesk.com/business/2024/10/23/solana-based-social-impact-dao-raises-15m-for-global-education-initiatives/",
+      "pubDate": "Wed, 23 Oct 2024 14:45:50 +0000",
+      "creator": "Michael Zhang",
+      "content": "<p><img src=\"https://www.coindesk.com/resizer/Cr9q8QI54pQJP0E2GX8w_XE_Lms=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/XOSFV2O4DNDGNNQ5PBDSTZGLDE.jpg\" alt=\"A Solana-based social impact DAO has raised $15 million for global education initiatives.\" /></p><p>A decentralized autonomous organization built on Solana has successfully raised $15 million to fund education initiatives in underserved communities worldwide, with plans to deploy blockchain technology to ensure transparent allocation of resources and impact measurement.</p>",
+      "contentSnippet": "A decentralized autonomous organization built on Solana has successfully raised $15 million to fund education initiatives in underserved communities worldwide, with plans to deploy blockchain technology to ensure transparent allocation of resources and impact measurement.",
+      "categories": ["Solana", "DAO", "Social Impact", "Education"],
+      "enclosure": {
+        "url": "https://www.coindesk.com/resizer/Cr9q8QI54pQJP0E2GX8w_XE_Lms=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/XOSFV2O4DNDGNNQ5PBDSTZGLDE.jpg",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Crypto-Based Carbon Credit Platform Launches to Address Climate Change",
+      "link": "https://www.coindesk.com/tech/2024/10/23/crypto-based-carbon-credit-platform-launches-to-address-climate-change/",
+      "pubDate": "Wed, 23 Oct 2024 09:20:15 +0000",
+      "creator": "Emma Wilson",
+      "content": "<p><img src=\"https://www.coindesk.com/resizer/5oP8CgM7X9RdHsMtD9J2RcEQmvA=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/HFNSDEAQ6NANTFDOCRWM4BTJPE.jpg\" alt=\"A crypto-based carbon credit platform has launched to address climate change.\" /></p><p>A new blockchain platform for carbon credits has launched with backing from major environmental organizations, offering unprecedented transparency in carbon offset verification and trading to help businesses and individuals address climate change more effectively.</p>",
+      "contentSnippet": "A new blockchain platform for carbon credits has launched with backing from major environmental organizations, offering unprecedented transparency in carbon offset verification and trading to help businesses and individuals address climate change more effectively.",
+      "categories": ["Technology", "Climate", "Carbon Credits", "Environment"],
+      "enclosure": {
+        "url": "https://www.coindesk.com/resizer/5oP8CgM7X9RdHsMtD9J2RcEQmvA=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/HFNSDEAQ6NANTFDOCRWM4BTJPE.jpg",
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "title": "Blockchain for Good: Humanitarian Aid Tracking System Deployed in Crisis Zones",
+      "link": "https://www.coindesk.com/tech/2024/10/22/blockchain-for-good-humanitarian-aid-tracking-system-deployed-in-crisis-zones/",
+      "pubDate": "Tue, 22 Oct 2024 11:10:30 +0000",
+      "creator": "Daniel Morrison",
+      "content": "<p><img src=\"https://www.coindesk.com/resizer/jPLTkSm6EfA81U9ByLgJh4l3Pms=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/VDZTXECOOJEMNFIRGQ5NZOVWRQ.jpg\" alt=\"A blockchain-based humanitarian aid tracking system has been deployed in crisis zones.\" /></p><p>A consortium of international aid organizations has deployed a blockchain-based tracking system across multiple crisis zones to ensure transparent and efficient delivery of humanitarian aid, with initial reports showing significant improvements in resource allocation and reduced loss due to corruption.</p>",
+      "contentSnippet": "A consortium of international aid organizations has deployed a blockchain-based tracking system across multiple crisis zones to ensure transparent and efficient delivery of humanitarian aid, with initial reports showing significant improvements in resource allocation and reduced loss due to corruption.",
+      "categories": ["Blockchain", "Humanitarian", "Aid", "Impact"],
+      "enclosure": {
+        "url": "https://www.coindesk.com/resizer/jPLTkSm6EfA81U9ByLgJh4l3Pms=/1024x0/filters:quality(80):format(webp)/cloudfront-us-east-1.images.arcpublishing.com/coindesk/VDZTXECOOJEMNFIRGQ5NZOVWRQ.jpg",
+        "type": "image/jpeg"
+      }
+    }
+  ]
+}

@@ -1,14 +1,15 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+// Follow Supabase Edge Function conventions for imports
 import { createClient } from "npm:@supabase/supabase-js@2.39.8";
+import { v4 as uuidv4 } from "npm:uuid@11.0.0";
 
 // Initialize the Supabase client
 const supabaseUrl = Deno.env.get('SUPABASE_URL') || '';
 const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-// Get CoinDesk API key from environment
-const COINDESK_API_KEY = Deno.env.get('COINDESK_API_KEY') || '';
-const COINDESK_API_URL = 'https://api.coindesk.com/v1/news';
+// Get CoinDesk API key from environment or settings - use the provided key
+const COINDESK_API_KEY = Deno.env.get('COINDESK_API_KEY') || Deno.env.get('VITE_COINDESK_API_KEY') || 'd528326f0bb6201b28c547de4d6a67d5036a02ef35768996a83c700d84b9bcfb';
+const COINDESK_API_URL = 'https://data-api.coindesk.com/news/v1/article/list';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -33,11 +34,6 @@ async function createAggregationLog(eventType: string, status: string, details: 
   } catch (error) {
     console.error('Error in createAggregationLog:', error);
   }
-}
-
-// Generate a UUID
-function generateUUID() {
-  return crypto.randomUUID();
 }
 
 // Function to check if we should use cache or fetch new data
@@ -149,7 +145,7 @@ async function fetchCoindeskNews(options: any = {}) {
     const useCache = await shouldUseCachedData();
     const cacheKey = 'coindesk_latest_news';
     
-    if (useCache) {
+    if (useCache && !options.forceUpdate) {
       console.log('Using cached CoinDesk news data');
       const cachedData = await getCachedData(cacheKey);
       
@@ -163,8 +159,38 @@ async function fetchCoindeskNews(options: any = {}) {
       console.log('No valid cache found, fetching fresh data');
     }
     
+    // Get configuration from system settings
+    const { data: settings, error: settingsError } = await supabase
+      .from('system_settings')
+      .select('coindesk_enabled, coindesk_api_key')
+      .eq('id', 'aggregation_status')
+      .single();
+    
+    if (settingsError) {
+      throw new Error(`Error fetching CoinDesk settings: ${settingsError.message}`);
+    }
+    
+    // Check if CoinDesk is enabled
+    if (!settings?.coindesk_enabled && !options.forceUpdate) {
+      console.log('CoinDesk integration is disabled');
+      
+      await createAggregationLog('coindesk_fetch', 'skipped', {
+        reason: 'CoinDesk integration is disabled',
+        timestamp: new Date().toISOString()
+      });
+      
+      return {
+        source: 'none',
+        status: 'skipped',
+        reason: 'CoinDesk integration is disabled'
+      };
+    }
+    
+    // Use API key from settings or environment
+    const apiKey = settings?.coindesk_api_key || COINDESK_API_KEY;
+    
     // Validate API key
-    if (!COINDESK_API_KEY) {
+    if (!apiKey) {
       throw new Error('CoinDesk API key is not configured');
     }
     
@@ -178,13 +204,21 @@ async function fetchCoindeskNews(options: any = {}) {
       })
       .eq('id', 'aggregation_status');
     
-    // Fetch data from CoinDesk API
-    console.log('Fetching news from CoinDesk API');
-    const response = await fetch(`${COINDESK_API_URL}/feed?limit=20`, {
+    // Build the URL with query parameters
+    const url = new URL(COINDESK_API_URL);
+    url.searchParams.append('lang', 'EN'); // English only
+    url.searchParams.append('limit', '10'); // 10 articles per request
+    
+    console.log(`Fetching news from CoinDesk API: ${url.toString()}`);
+    
+    // Fetch data from CoinDesk API with proper authorization header
+    const response = await fetch(url.toString(), {
       headers: {
-        'x-api-key': COINDESK_API_KEY
+        'Authorization': `Api-Key ${apiKey}`
       }
     });
+    
+    console.log(`CoinDesk API response status: ${response.status}`);
     
     // Check for rate limiting
     if (response.status === 429) {
@@ -220,16 +254,20 @@ async function fetchCoindeskNews(options: any = {}) {
     
     // Check for other errors
     if (!response.ok) {
-      throw new Error(`CoinDesk API error: ${response.status} ${response.statusText}`);
+      const errorText = await response.text();
+      console.error(`CoinDesk API error: ${response.status} ${response.statusText}`, errorText);
+      throw new Error(`CoinDesk API error: ${response.status} ${response.statusText} - ${errorText}`);
     }
     
     const data = await response.json();
+    
+    console.log(`CoinDesk API response received with ${data.Data?.length || 0} articles`);
     
     // Cache the data
     await cacheData(cacheKey, data);
     
     // Process articles if requested
-    if (options.processArticles) {
+    if (options.processArticles !== false) {
       await processCoindeskArticles(data);
     }
     
@@ -253,42 +291,61 @@ async function fetchCoindeskNews(options: any = {}) {
 // Function to process and store CoinDesk articles
 async function processCoindeskArticles(data: any) {
   try {
-    if (!data || !data.news || !Array.isArray(data.news)) {
+    if (!data || !data.Data || !Array.isArray(data.Data)) {
       throw new Error('Invalid CoinDesk API response format');
     }
     
-    const articles = data.news;
+    const articles = data.Data;
     console.log(`Processing ${articles.length} CoinDesk articles`);
     
+    // Skip if no articles
+    if (!articles.length) {
+      console.log('No CoinDesk articles to process');
+      return {
+        message: 'No CoinDesk articles to process',
+        count: 0
+      };
+    }
+    
     // Transform articles for database
-    const transformedArticles = articles.map(article => {
+    const transformedArticles = articles.map((article: any) => {
       // Skip any invalid articles
-      if (!article.title || !article.url) {
+      if (!article.TITLE || !article.URL) {
         return null;
       }
       
+      // Process categories - use category data
+      const category = extractCategories(article);
+      
+      // Extract tags from categories and keywords
+      const tags = extractTags(article);
+      
       return {
-        id: generateUUID(),
-        title: article.title.trim(),
-        content: article.body || article.description || '',
-        source: 'CoinDesk',
-        url: article.url,
-        image_url: article.cover?.url || null,
-        published_at: article.published_at || new Date().toISOString(),
+        id: uuidv4(),
+        title: article.TITLE.trim(),
+        content: article.BODY || article.SUBTITLE || '',
+        source: article.SOURCE_DATA?.NAME || 'CoinDesk',
+        url: article.URL,
+        image_url: article.IMAGE_URL || null,
+        published_at: new Date(article.PUBLISHED_ON * 1000).toISOString(), // Convert Unix timestamp to ISO
         created_at: new Date().toISOString(),
-        relevance_score: 50, // Default score
-        category: 'crypto', // Default category for CoinDesk
-        tags: article.tags?.map((tag: any) => tag.name.toLowerCase()) || [],
-        language: 'en', // Assume English for CoinDesk
+        relevance_score: calculateRelevanceScore(article), // Simple scoring based on sentiment
+        category: category,
+        tags: tags,
+        language: article.LANG || 'en',
         source_id: 'coindesk',
-        source_guid: article.id || article.url // Use CoinDesk's ID or URL as a unique identifier
+        source_guid: article.GUID || article.URL // Use GUID or URL as a unique identifier
       };
     }).filter(article => article !== null);
     
     console.log(`Transformed ${transformedArticles.length} valid CoinDesk articles`);
     
     if (transformedArticles.length === 0) {
-      throw new Error('No valid CoinDesk articles to process');
+      console.log('No valid CoinDesk articles to process after transformation');
+      return {
+        message: 'No valid CoinDesk articles to process',
+        count: 0
+      };
     }
     
     // Check for duplicates in the database
@@ -324,6 +381,14 @@ async function processCoindeskArticles(data: any) {
     
     if (newArticles.length === 0) {
       console.log('No new CoinDesk articles to add');
+      
+      // Log success with no new articles
+      await createAggregationLog('coindesk_fetch', 'success', {
+        message: 'No new CoinDesk articles to add',
+        count: 0,
+        timestamp: new Date().toISOString()
+      });
+      
       return {
         message: 'No new CoinDesk articles to add',
         count: 0
@@ -366,8 +431,102 @@ async function processCoindeskArticles(data: any) {
   }
 }
 
+// Extract categories from CoinDesk article
+function extractCategories(article: any): string {
+  // If we have category data, use the first one or a default
+  if (article.CATEGORY_DATA && article.CATEGORY_DATA.length > 0) {
+    const categoryMap: Record<string, string> = {
+      'BTC': 'crypto',
+      'ETH': 'crypto',
+      'EXCHANGE': 'crypto',
+      'MARKET': 'stocks',
+      'BUSINESS': 'business',
+      'REGULATION': 'crypto',
+      'TRADING': 'stocks',
+      'TECHNOLOGY': 'technology'
+    };
+    
+    // Get the first category name
+    const categoryName = article.CATEGORY_DATA[0].CATEGORY;
+    
+    // Return mapped category or default to 'crypto'
+    return categoryMap[categoryName] || 'crypto';
+  }
+  
+  // Default category
+  return 'crypto';
+}
+
+// Extract tags from CoinDesk article
+function extractTags(article: any): string[] {
+  const tags = new Set<string>();
+  
+  // Add categories as tags
+  if (article.CATEGORY_DATA && Array.isArray(article.CATEGORY_DATA)) {
+    article.CATEGORY_DATA.forEach((category: any) => {
+      if (category.NAME) {
+        tags.add(category.NAME.toLowerCase());
+      }
+    });
+  }
+  
+  // Add keywords as tags
+  if (article.KEYWORDS) {
+    article.KEYWORDS.split('|').forEach((keyword: string) => {
+      const cleaned = keyword.trim().toLowerCase();
+      if (cleaned) {
+        tags.add(cleaned);
+      }
+    });
+  }
+  
+  // Add some custom tags based on the title for better categorization
+  const titleLower = article.TITLE.toLowerCase();
+  const customTags = ['bitcoin', 'ethereum', 'crypto', 'blockchain', 'defi', 'nft', 'web3', 'metaverse'];
+  
+  customTags.forEach(tag => {
+    if (titleLower.includes(tag)) {
+      tags.add(tag);
+    }
+  });
+  
+  return Array.from(tags);
+}
+
+// Calculate a relevance score based on article
+function calculateRelevanceScore(article: any): number {
+  let score = 50; // Default score
+  
+  // Adjust based on sentiment if available
+  if (article.SENTIMENT) {
+    if (article.SENTIMENT === 'POSITIVE') {
+      score += 15;
+    } else if (article.SENTIMENT === 'NEGATIVE') {
+      score -= 10;
+    }
+  }
+  
+  // Adjust based on score if available
+  if (typeof article.SCORE === 'number') {
+    score += article.SCORE * 10;
+  }
+  
+  // Upvotes increase score
+  if (article.UPVOTES > 0) {
+    score += Math.min(article.UPVOTES * 2, 20);
+  }
+  
+  // Downvotes decrease score
+  if (article.DOWNVOTES > 0) {
+    score -= Math.min(article.DOWNVOTES * 2, 20);
+  }
+  
+  // Ensure score is between 0-100
+  return Math.max(0, Math.min(100, score));
+}
+
 // Handler for the Edge Function
-serve(async (req) => {
+Deno.serve(async (req) => {
   // Handle CORS preflight request
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders, status: 204 });
