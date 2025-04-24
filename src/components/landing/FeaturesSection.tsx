@@ -1,39 +1,39 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BarChart2, Globe, Zap, Shield, Users, Cpu } from 'lucide-react';
+import { BarChart2, Globe as GlobeHemisphereWest, Zap, Shield, Users, Lightbulb } from 'lucide-react';
 import Feature from './Feature';
 
 const FeaturesSection: React.FC = () => {
   const features = [
     {
       icon: <BarChart2 className="h-8 w-8 text-blue-500" />,
-      title: "AI-Powered Relevance",
-      description: "Our algorithm learns your preferences and ranks news based on what matters most to you."
+      title: "Impact-Focused Content",
+      description: "Our algorithm prioritizes news that has real impact on communities, businesses, and social causes."
     },
     {
-      icon: <Globe className="h-8 w-8 text-purple-500" />,
-      title: "Multiple Sources",
-      description: "Aggregate trending news from diverse sources for a comprehensive information landscape."
+      icon: <GlobeHemisphereWest className="h-8 w-8 text-purple-500" />,
+      title: "Global Perspective",
+      description: "Aggregate impactful stories from diverse sources for a comprehensive view of global developments."
     },
     {
       icon: <Zap className="h-8 w-8 text-green-500" />,
       title: "Real-Time Updates",
-      description: "Fresh news delivered every 15 minutes to keep you on top of rapidly changing markets."
+      description: "Fresh stories delivered every 15 minutes to keep you informed on fast-changing developments."
     },
     {
       icon: <Shield className="h-8 w-8 text-red-500" />,
       title: "Personalized Filters",
-      description: "Define your criteria during onboarding to filter out noise and focus on what's important."
+      description: "Define your impact interests to filter out noise and focus on stories that matter to you."
     },
     {
       icon: <Users className="h-8 w-8 text-yellow-500" />,
-      title: "Industry Focused",
-      description: "Specialized for traders, Web3 professionals, executives, and market analysts."
+      title: "Community Focus",
+      description: "Specialized for changemakers, social entrepreneurs, executives, and community leaders."
     },
     {
-      icon: <Cpu className="h-8 w-8 text-indigo-500" />,
-      title: "Smart Dashboard",
-      description: "Intuitive interface that adapts to your usage patterns and information needs."
+      icon: <Lightbulb className="h-8 w-8 text-indigo-500" />,
+      title: "Actionable Insights",
+      description: "Stories that inspire action and provide practical takeaways for real-world impact."
     }
   ];
 
@@ -47,9 +47,9 @@ const FeaturesSection: React.FC = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold mb-4">Intelligent. Tailored. Powerful.</h2>
+            <h2 className="text-3xl font-bold mb-4">Impactful. Relevant. Actionable.</h2>
             <p className="text-xl text-gray-300">
-              Designed for professionals who need accurate, relevant news without the noise.
+              Designed for individuals and organizations who need news that drives positive change and informed action.
             </p>
           </motion.div>
         </div>

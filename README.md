@@ -1,11 +1,11 @@
-# SophIQ - AI-Powered News Aggregator
+# Sentro - AI-Powered Impact News Aggregator
 
-SophIQ is a sophisticated news aggregator platform that collects trending news from NewsAPI.org every 15 minutes, builds original articles, and uses an AI-driven algorithm to rank their relevance based on user-defined criteria.
+Sentro is a sophisticated news aggregator platform that collects trending impact news from multiple sources every 15 minutes, builds original articles, and uses an AI-driven algorithm to rank their relevance based on user-defined criteria.
 
 ## Features
 
 - **Personalized News Feed**: Customized news articles based on user preferences
-- **Intelligent Ranking**: AI-driven algorithm to prioritize relevant content
+- **Intelligent Ranking**: AI-driven algorithm to prioritize relevant impact content
 - **User Onboarding**: In-depth onboarding process to capture user preferences
 - **Admin Dashboard**: Comprehensive admin tools for user management and stats tracking
 - **Responsive Design**: Sleek, futuristic interface that works across all devices
@@ -45,11 +45,12 @@ SophIQ is a sophisticated news aggregator platform that collects trending news f
 
 ## Target Audience
 
-- Stock traders
-- Web3 professionals
-- C-level executives
-- Degen Web3 traders
-- Market analysts
+- Impact investors
+- Social entrepreneurs
+- Nonprofit organizations
+- Corporate sustainability professionals
+- Community leaders
+- Changemakers
 
 ## License
 

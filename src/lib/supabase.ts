@@ -23,16 +23,26 @@ const createDummyClient = () => {
     'Supabase credentials are missing or invalid. Please connect to Supabase via the "Connect to Supabase" button.'
   );
   
-  // Return a minimal mock client that won't crash the app
+  // Return a more complete mock client that includes signInWithPassword
   return {
     auth: {
       getSession: () => Promise.resolve({ data: { session: null }, error: null }),
       onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
-      signOut: () => Promise.resolve({ error: null })
+      signOut: () => Promise.resolve({ error: null }),
+      signInWithPassword: () => Promise.resolve({ error: { message: 'Supabase not configured' } }),
+      signUp: () => Promise.resolve({ error: { message: 'Supabase not configured' }, data: null })
     },
     from: () => ({
-      select: () => ({ data: null, error: { message: 'Supabase not configured' } })
-    })
+      select: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      insert: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      update: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      delete: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      upsert: () => ({ data: null, error: { message: 'Supabase not configured' } })
+    }),
+    functions: {
+      invoke: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } })
+    },
+    rpc: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } })
   } as any;
 };
 
@@ -45,3 +55,7 @@ export const supabase = isSupabaseConfigured()
       }
     })
   : createDummyClient();
+
+// Log the configuration status to help with debugging
+console.log(`Supabase configuration status: ${isSupabaseConfigured() ? 'CONFIGURED' : 'NOT CONFIGURED'}`);
+console.log(`URL available: ${Boolean(supabaseUrl)}, Key available: ${Boolean(supabaseKey)}`);

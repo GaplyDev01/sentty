@@ -17,7 +17,7 @@ const HeroStats: React.FC = () => {
     {
       icon: <Users className="h-5 w-5 text-green-400" />,
       value: "10k+",
-      label: "Active Users"
+      label: "Impact Leaders"
     }
   ];
 

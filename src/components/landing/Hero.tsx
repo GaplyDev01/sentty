@@ -15,20 +15,20 @@ const Hero: React.FC = () => {
         className="space-y-8 relative z-20"
       >
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-          <span className="block mb-2">Stay ahead with</span>
+          <span className="block mb-2">Stay informed with</span>
           <AnimatedText 
-            text="AI-powered news" 
+            text="Impact News" 
             gradient={true} 
             gradientFrom="from-blue-400" 
             gradientTo="to-purple-500"
             className="text-4xl sm:text-5xl lg:text-6xl font-bold"
             delay={0.3}
           />
-          <span className="block mt-2">tailored for you</span>
+          <span className="block mt-2">that matters to you</span>
         </h1>
         
         <p className="text-xl text-gray-300 max-w-xl">
-          SophIQ intelligently aggregates and ranks news that matters to you, cutting through the noise in fast-paced industries.
+          Sentro intelligently aggregates and ranks news that impacts your world, cutting through the noise to deliver content that truly matters.
         </p>
         
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 relative z-20">
@@ -66,8 +66,8 @@ const Hero: React.FC = () => {
             </div>
           </div>
           <img 
-            src="https://images.unsplash.com/photo-1639322537504-6427a16b0a28?q=80&w=1000&auto=format&fit=crop" 
-            alt="SophIQ Dashboard Preview" 
+            src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=1000&auto=format&fit=crop" 
+            alt="Sentro Dashboard Preview" 
             className="w-full h-auto"
           />
         </div>

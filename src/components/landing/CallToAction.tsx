@@ -16,7 +16,7 @@ const CallToAction: React.FC = () => {
         >
           <h2 className="text-3xl font-bold">Ready to transform your news experience?</h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Join SophIQ today and stay informed with news that actually matters to you and your industry.
+            Join Sentro today and stay informed with impact news that matters to you and drives positive change.
           </p>
           <div className="relative z-20">
             <Link 

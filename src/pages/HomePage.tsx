@@ -6,11 +6,34 @@ import { getArticles, rankArticlesForUser, getAvailableCategories } from '../ser
 import { TrendingUp, Clock, Siren as Fire, Filter, RefreshCw } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { debounce } from '../utils/cacheUtils';
+import HighlightedNewsBanner from '../components/ui/HighlightedNewsBanner';
 import type { Article } from '../types/newsapi';
 import type { ArticleFilters } from '../components/articles/ArticleList';
 
 // How many articles to load per page
 const ARTICLES_PER_PAGE = 9;
+
+// Sample news items for the highlighted banner
+const HIGHLIGHTED_NEWS = [
+  {
+    title: "Major climate initiative launches with backing from global investors",
+    link: "https://www.reuters.com/sustainability/",
+    pubDate: new Date().toISOString(),
+    category: "Sustainability"
+  },
+  {
+    title: "New social impact fund raises $100M to address housing inequality",
+    link: "https://www.reuters.com/business/sustainable-business/",
+    pubDate: new Date().toISOString(),
+    category: "Social Impact"
+  },
+  {
+    title: "Tech companies form coalition to advance climate change solutions",
+    link: "https://www.reuters.com/technology/",
+    pubDate: new Date().toISOString(),
+    category: "Technology"
+  }
+];
 
 const HomePage: React.FC = () => {
   const { user, profile, isAdmin } = useAuth();
@@ -324,13 +347,16 @@ const HomePage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent"></div>
         <div className="relative h-full flex flex-col justify-end p-8">
           <h1 className="text-3xl font-bold text-white mb-2">
-            {user ? `Welcome back, ${profile?.username || 'User'}` : 'Discover the latest news with SophIQ'}
+            {user ? `Welcome back, ${profile?.username || 'User'}` : 'Discover impact news with Sentro'}
           </h1>
           <p className="text-gray-300 max-w-2xl">
-            Stay informed with the most relevant news tailored to your interests, curated by our advanced AI ranking system.
+            Stay informed with the most relevant impact news tailored to your interests, curated by our advanced AI ranking system.
           </p>
         </div>
       </motion.div>
+      
+      {/* Highlighted news banner */}
+      <HighlightedNewsBanner newsItems={HIGHLIGHTED_NEWS} className="mb-6" />
       
       {error && (
         <div className="bg-red-900/20 border border-red-800/30 rounded-lg p-4 text-red-300 flex items-center justify-between">
@@ -389,7 +415,7 @@ const HomePage: React.FC = () => {
         articles={getActiveArticles()}
         loading={isLoading()} 
         title={activeTab === 'for-you' ? 'Personalized For You' : 
-               activeTab === 'trending' ? 'Trending Articles' :
+               activeTab === 'trending' ? 'Trending Impact News' :
                activeTab === 'recent' ? 'Recently Published' : 'Discover New Topics'}
         loadMore={handleLoadMore}
         hasMore={hasMore}

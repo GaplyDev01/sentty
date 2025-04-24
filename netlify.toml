@@ -13,5 +13,14 @@
   to = "/index.html"
   status = 200
 
-# Environment variables will be taken from the .env file
-# Don't need to specify them here since they're already in .env
+# Configure the Fetch Feeds plugin
+[[plugins]]
+  package = "netlify-plugin-fetch-feeds"
+
+  [plugins.inputs]
+    dataDir = "public/feeds"
+
+    [[plugins.inputs.feeds]]
+      name = "reuters-topnews"
+      url = "http://feeds.reuters.com/reuters/topNews"
+      ttl = 3600  # Re-fetch every hour

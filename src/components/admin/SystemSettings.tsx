@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import CoinDeskSettings from './CoinDeskSettings';
 import CryptoPanicSettings from './CryptoPanicSettings';
 import FireCrawlSettings from './FireCrawlSettings';
+import CryptoIntegrationsManager from './CryptoIntegrationsManager';
 
 const SystemSettings: React.FC = () => {
   const [siteName, setSiteName] = useState('SophIQ');
@@ -37,6 +38,9 @@ const SystemSettings: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
+      {/* Quick Fix for Crypto Integrations */}
+      <CryptoIntegrationsManager />
+      
       {/* News API Configurations */}
       <div className="space-y-6">
         {/* CoinDesk Settings */}

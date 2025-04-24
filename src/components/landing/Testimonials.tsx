@@ -13,23 +13,23 @@ interface Testimonial {
 const Testimonials: React.FC = () => {
   const testimonials: Testimonial[] = [
     {
-      text: "SophIQ has transformed how I stay updated on market trends. The AI-powered news ranking is incredibly accurate for my interests.",
+      text: "Sentro has transformed how I stay updated on impact-driven initiatives. The AI-powered news ranking accurately surfaces stories I care about most.",
       author: "Alex Thompson",
-      position: "Investment Analyst",
+      position: "Social Impact Investor",
       rating: 5,
       avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=100&ixid=MnwxfDB8MXxyYW5kb218MHx8cGVyc29ufHx8fHx8MTY4NTU0NjY5Nw&ixlib=rb-4.0.3&q=80&w=100"
     },
     {
-      text: "The personalized news feed is exactly what I needed as a Web3 developer. It keeps me informed about the latest blockchain innovations.",
+      text: "The personalized news feed is exactly what I needed as a sustainability professional. It keeps me informed about the latest environmental initiatives and social impact projects.",
       author: "Samantha Chen",
-      position: "Web3 Developer",
+      position: "ESG Program Manager",
       rating: 5,
       avatarUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=100&ixid=MnwxfDB8MXxyYW5kb218MHx8cGVyc29ufHx8fHx8MTY4NTU0NjcyOA&ixlib=rb-4.0.3&q=80&w=100"
     },
     {
-      text: "As a CEO, I need to stay on top of industry news without spending hours reading articles. SophIQ delivers exactly what I need, when I need it.",
+      text: "As a nonprofit director, I need to stay on top of community initiatives without spending hours reading articles. Sentro delivers exactly what I need, when I need it.",
       author: "Michael Roberts",
-      position: "CEO, TechVision",
+      position: "Executive Director, Community First",
       rating: 4,
       avatarUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=100&ixid=MnwxfDB8MXxyYW5kb218MHx8YnVzaW5lc3MgbWFufHx8fHx8MTY4NTU0Njc1OQ&ixlib=rb-4.0.3&q=80&w=100"
     }
@@ -46,7 +46,7 @@ const Testimonials: React.FC = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            Trusted by Professionals
+            Trusted by Impact Leaders
           </motion.h2>
         </div>
         

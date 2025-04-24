@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { NewsTickerProvider } from './contexts/NewsTickerContext';
 
 // Layouts
 import MainLayout from './components/layout/MainLayout';
@@ -118,9 +119,11 @@ function App() {
 function AppWrapper() {
   return (
     <AuthProvider>
-      <Router>
-        <App />
-      </Router>
+      <NewsTickerProvider>
+        <Router>
+          <App />
+        </Router>
+      </NewsTickerProvider>
     </AuthProvider>
   );
 }
