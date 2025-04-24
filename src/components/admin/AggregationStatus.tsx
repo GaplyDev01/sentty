@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RefreshCw, Check, XCircle, AlertCircle, Terminal, Clock } from 'lucide-react';
+import { RefreshCw, Check, XCircle, AlertCircle, Terminal, Clock, Calendar } from 'lucide-react';
 import { format, formatDistanceToNow, parseISO, addMinutes } from 'date-fns';
 import { motion } from 'framer-motion';
 import { aggregationService } from '../../services/aggregationService';
@@ -20,6 +20,8 @@ const AggregationStatus: React.FC<AggregationStatusProps> = ({ status, onRefresh
   const [rateLimited, setRateLimited] = useState(false);
   const [cooldownUntil, setCooldownUntil] = useState<Date | null>(null);
   const [singleCategory, setSingleCategory] = useState(true); // Default to single category to avoid rate limiting
+  const [testingScheduled, setTestingScheduled] = useState(false);
+  const [scheduledResult, setScheduledResult] = useState<any>(null);
 
   const triggerAggregation = async () => {
     try {
@@ -114,6 +116,24 @@ const AggregationStatus: React.FC<AggregationStatusProps> = ({ status, onRefresh
     }
   };
 
+  const testScheduledFunction = async () => {
+    try {
+      setTestingScheduled(true);
+      setErrorMessage(null);
+      setScheduledResult(null);
+      
+      const result = await aggregationService.triggerScheduledAggregation();
+      setScheduledResult(result);
+      onRefresh(); // Refresh to get latest status
+      
+    } catch (error) {
+      console.error('Error testing scheduled function:', error);
+      setErrorMessage(error instanceof Error ? error.message : "Unknown error testing scheduled function");
+    } finally {
+      setTestingScheduled(false);
+    }
+  };
+
   return (
     <div className="bg-gray-900/50 p-6 rounded-lg">
       <h3 className="text-lg font-medium text-white mb-4">News Aggregation Status</h3>
@@ -139,7 +159,7 @@ const AggregationStatus: React.FC<AggregationStatusProps> = ({ status, onRefresh
         
         {status?.next_scheduled && (
           <div className="bg-gray-800/50 rounded-lg p-3 flex items-center">
-            <Clock className="h-4 w-4 text-blue-400 mr-2" />
+            <Calendar className="h-4 w-4 text-blue-400 mr-2" />
             <div>
               <p className="text-sm text-gray-300">Next scheduled run:</p>
               <p className="text-white">
@@ -261,78 +281,157 @@ const AggregationStatus: React.FC<AggregationStatusProps> = ({ status, onRefresh
           </motion.div>
         )}
         
-        <div className="pt-4 border-t border-gray-700">
-          <p className="text-gray-300 mb-3">Manual Aggregation</p>
-          
-          <div className="flex items-center gap-4">
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="force-update"
-                checked={forceUpdate}
-                onChange={(e) => setForceUpdate(e.target.checked)}
-                className="h-4 w-4 rounded border-gray-600 text-blue-600 focus:ring-blue-600 bg-gray-700"
-              />
-              <label htmlFor="force-update" className="ml-2 text-sm text-gray-300">
-                Force Update (bypass duplicate check)
-              </label>
+        {showLogs && scheduledResult && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="bg-gray-800/70 border border-gray-700/30 rounded-md p-3 text-sm text-gray-300 mt-3"
+          >
+            <div className="flex items-center justify-between mb-2">
+              <h4 className="font-medium flex items-center">
+                <Clock className="h-4 w-4 mr-2" />
+                Scheduled Function Test Results
+              </h4>
+              <button 
+                onClick={() => setScheduledResult(null)}
+                className="text-gray-400 hover:text-gray-200"
+              >
+                Hide
+              </button>
             </div>
             
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="single-category"
-                checked={singleCategory}
-                onChange={(e) => setSingleCategory(e.target.checked)}
-                className="h-4 w-4 rounded border-gray-600 text-blue-600 focus:ring-blue-600 bg-gray-700"
-              />
-              <label htmlFor="single-category" className="ml-2 text-sm text-gray-300">
-                Single Category (avoid rate limiting)
-              </label>
-            </div>
-            
-            <button
-              onClick={triggerAggregation}
-              disabled={running || (cooldownUntil && new Date() < cooldownUntil)}
-              className={`px-4 py-2 rounded-lg flex items-center ${
-                running || (cooldownUntil && new Date() < cooldownUntil)
-                  ? 'bg-gray-700 cursor-not-allowed text-gray-400'
-                  : runState === 'running'
-                  ? 'bg-blue-900/40 cursor-wait'
-                  : runState === 'completed'
-                  ? 'bg-green-600 hover:bg-green-700'
-                  : runState === 'error'
-                  ? 'bg-red-600 hover:bg-red-700'
-                  : 'bg-blue-600 hover:bg-blue-700'
-              } text-white transition-colors`}
-            >
-              {running ? (
-                <>
-                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                  Running aggregation...
-                </>
-              ) : cooldownUntil && new Date() < cooldownUntil ? (
-                <>
-                  <Clock className="h-4 w-4 mr-2" />
-                  Rate limited (try again later)
-                </>
-              ) : runState === 'completed' ? (
-                <>
-                  <Check className="h-4 w-4 mr-2" />
-                  Aggregation completed
-                </>
-              ) : runState === 'error' ? (
-                <>
-                  <XCircle className="h-4 w-4 mr-2" />
-                  Error, try again
-                </>
-              ) : (
-                <>
-                  <RefreshCw className="h-4 w-4 mr-2" />
-                  Run Aggregation Now
-                </>
+            <div className="space-y-2">
+              <p>{scheduledResult.message}</p>
+              
+              {scheduledResult.status === 'skipped' && (
+                <p className="text-yellow-400">Aggregation was skipped: {scheduledResult.reason}</p>
               )}
-            </button>
+              
+              {scheduledResult.result && (
+                <p>
+                  {scheduledResult.result.count > 0 
+                    ? `Added ${scheduledResult.result.count} new articles` 
+                    : "No new articles were added"}
+                </p>
+              )}
+              
+              {scheduledResult.nextScheduled && (
+                <div className="flex items-center text-blue-300 mt-2">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  Next scheduled: {new Date(scheduledResult.nextScheduled).toLocaleString()}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+        
+        <div className="pt-4 border-t border-gray-700">
+          <p className="text-gray-300 mb-3">Manual Actions</p>
+          
+          <div className="flex flex-wrap items-start gap-4">
+            <div className="space-y-4">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="force-update"
+                  checked={forceUpdate}
+                  onChange={(e) => setForceUpdate(e.target.checked)}
+                  className="h-4 w-4 rounded border-gray-600 text-blue-600 focus:ring-blue-600 bg-gray-700"
+                />
+                <label htmlFor="force-update" className="ml-2 text-sm text-gray-300">
+                  Force Update (bypass duplicate check)
+                </label>
+              </div>
+              
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="single-category"
+                  checked={singleCategory}
+                  onChange={(e) => setSingleCategory(e.target.checked)}
+                  className="h-4 w-4 rounded border-gray-600 text-blue-600 focus:ring-blue-600 bg-gray-700"
+                />
+                <label htmlFor="single-category" className="ml-2 text-sm text-gray-300">
+                  Single Category (avoid rate limiting)
+                </label>
+              </div>
+              
+              <button
+                onClick={triggerAggregation}
+                disabled={running || (cooldownUntil && new Date() < cooldownUntil)}
+                className={`px-4 py-2 rounded-lg flex items-center ${
+                  running || (cooldownUntil && new Date() < cooldownUntil)
+                    ? 'bg-gray-700 cursor-not-allowed text-gray-400'
+                    : runState === 'running'
+                    ? 'bg-blue-900/40 cursor-wait'
+                    : runState === 'completed'
+                    ? 'bg-green-600 hover:bg-green-700'
+                    : runState === 'error'
+                    ? 'bg-red-600 hover:bg-red-700'
+                    : 'bg-blue-600 hover:bg-blue-700'
+                } text-white transition-colors`}
+              >
+                {running ? (
+                  <>
+                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                    Running manual aggregation...
+                  </>
+                ) : cooldownUntil && new Date() < cooldownUntil ? (
+                  <>
+                    <Clock className="h-4 w-4 mr-2" />
+                    Rate limited (try again later)
+                  </>
+                ) : runState === 'completed' ? (
+                  <>
+                    <Check className="h-4 w-4 mr-2" />
+                    Aggregation completed
+                  </>
+                ) : runState === 'error' ? (
+                  <>
+                    <XCircle className="h-4 w-4 mr-2" />
+                    Error, try again
+                  </>
+                ) : (
+                  <>
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                    Run Manual Aggregation Now
+                  </>
+                )}
+              </button>
+            </div>
+            
+            <div className="bg-gray-800/50 p-3 rounded-lg border border-gray-700/30 space-y-3">
+              <h4 className="text-sm font-medium text-white flex items-center">
+                <Clock className="h-4 w-4 mr-2 text-blue-400" />
+                Test Scheduled Function
+              </h4>
+              
+              <p className="text-xs text-gray-400">
+                Run the scheduled aggregation function manually to test that it's working correctly.
+              </p>
+              
+              <button
+                onClick={testScheduledFunction}
+                disabled={testingScheduled}
+                className={`px-4 py-2 rounded-lg flex items-center text-sm ${
+                  testingScheduled
+                    ? 'bg-blue-900/40 cursor-wait text-gray-300'
+                    : 'bg-blue-600 hover:bg-blue-700 text-white'
+                }`}
+              >
+                {testingScheduled ? (
+                  <>
+                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                    Testing...
+                  </>
+                ) : (
+                  <>
+                    <Calendar className="h-4 w-4 mr-2" />
+                    Test Scheduled Function
+                  </>
+                )}
+              </button>
+            </div>
           </div>
           
           {cooldownUntil && new Date() < cooldownUntil && (

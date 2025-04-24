@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Clock, Calendar, Check, X, RefreshCw } from 'lucide-react';
+import { Clock, Calendar, Check, X, RefreshCw, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { format, addMinutes, addHours, parseISO } from 'date-fns';
 import { aggregationService } from '../../services/aggregationService';
@@ -16,6 +16,7 @@ const AggregationScheduler: React.FC<AggregationSchedulerProps> = ({ onUpdate })
   const [saving, setSaving] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [lastAutomatedRun, setLastAutomatedRun] = useState<string | null>(null);
 
   // Frequency options
   const frequencyOptions = [
@@ -42,6 +43,21 @@ const AggregationScheduler: React.FC<AggregationSchedulerProps> = ({ onUpdate })
         setIsEnabled(data.enabled);
         setFrequency(data.frequency || '15min');
       }
+      
+      // Fetch recent automated runs
+      const logs = await aggregationService.getAggregationLogs({
+        limit: 10,
+        type: 'scheduled_aggregation'
+      });
+      
+      if (logs.length > 0) {
+        // Find the most recent successful run
+        const lastSuccessfulRun = logs.find(log => log.status === 'success');
+        if (lastSuccessfulRun) {
+          setLastAutomatedRun(lastSuccessfulRun.created_at);
+        }
+      }
+      
     } catch (error) {
       console.error('Error fetching schedule:', error);
       setError(error instanceof Error ? error.message : 'Failed to fetch schedule');
@@ -154,6 +170,19 @@ const AggregationScheduler: React.FC<AggregationSchedulerProps> = ({ onUpdate })
           </div>
         </div>
         
+        {/* Last Automated Run Info */}
+        {lastAutomatedRun && (
+          <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700/50">
+            <div className="flex items-center text-gray-300 mb-2">
+              <Clock className="h-4 w-4 mr-2 text-green-400" />
+              <span className="text-sm font-medium">Last Automated Run</span>
+            </div>
+            <p className="text-white">
+              {format(parseISO(lastAutomatedRun), 'MMM dd, yyyy HH:mm:ss')}
+            </p>
+          </div>
+        )}
+        
         {/* Next Scheduled Run */}
         {isEnabled && schedule?.next_scheduled && (
           <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700/50">
@@ -174,6 +203,17 @@ const AggregationScheduler: React.FC<AggregationSchedulerProps> = ({ onUpdate })
             <p>{error}</p>
           </div>
         )}
+        
+        {/* Information about automated system */}
+        <div className="bg-blue-900/20 border border-blue-500/30 rounded-md p-3 text-sm text-blue-300">
+          <p className="font-medium mb-2">About Automated Aggregation:</p>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>Articles will be automatically fetched according to the schedule you set</li>
+            <li>The system will automatically adjust for rate limits to avoid API issues</li>
+            <li>Each automated run fetches a small batch of articles to stay within API limits</li>
+            <li>The schedule works with Supabase's built-in cron scheduler</li>
+          </ul>
+        </div>
         
         {/* Save Button */}
         <div className="pt-4 border-t border-gray-700">

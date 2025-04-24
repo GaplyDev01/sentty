@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { format, parseISO } from 'date-fns';
-import { RefreshCw, Check, XCircle, Clock, Filter } from 'lucide-react';
+import { RefreshCw, Check, XCircle, Clock, Filter, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { aggregationService } from '../../services/aggregationService';
 import type { AggregationLog } from '../../types/newsapi';
@@ -9,7 +9,7 @@ import type { AggregationLog } from '../../types/newsapi';
 const AggregationLogs: React.FC = () => {
   const [logs, setLogs] = useState<AggregationLog[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<'all' | 'success' | 'error'>('all');
+  const [filter, setFilter] = useState<'all' | 'success' | 'error' | 'scheduled'>('all');
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,9 +22,14 @@ const AggregationLogs: React.FC = () => {
       setLoading(true);
       setError(null);
       
-      const options: { status?: 'success' | 'error' | 'running' } = {};
-      if (filter !== 'all') {
-        options.status = filter as 'success' | 'error' | 'running';
+      const options: { status?: 'success' | 'error' | 'running' | 'partial_success' | 'skipped'; type?: string } = {};
+      
+      if (filter === 'success') {
+        options.status = 'success';
+      } else if (filter === 'error') {
+        options.status = 'error';
+      } else if (filter === 'scheduled') {
+        options.type = 'scheduled_aggregation';
       }
       
       const data = await aggregationService.getAggregationLogs(options);
@@ -51,6 +56,8 @@ const AggregationLogs: React.FC = () => {
         return <XCircle className="h-4 w-4 text-red-400" />;
       case 'running':
         return <RefreshCw className="h-4 w-4 text-blue-400 animate-spin" />;
+      case 'skipped':
+        return <Clock className="h-4 w-4 text-yellow-400" />;
       default:
         return <Clock className="h-4 w-4 text-gray-400" />;
     }
@@ -67,6 +74,24 @@ const AggregationLogs: React.FC = () => {
           return `${details.count || details.articles_count || 0} articles added`;
         } else {
           return details.error || 'Error during aggregation';
+        }
+        
+      case 'crypto_aggregation':
+        if (log.status === 'success') {
+          return `${details.count || 0} crypto articles added`;
+        } else {
+          return details.error || 'Error during crypto aggregation';
+        }
+        
+      case 'scheduled_aggregation':
+        if (log.status === 'success') {
+          const generalCount = details.generalNewsCount || 0;
+          const cryptoCount = details.cryptoNewsCount || 0;
+          return `Scheduled: ${generalCount + cryptoCount} articles added (${generalCount} general, ${cryptoCount} crypto)`;
+        } else if (log.status === 'skipped') {
+          return `Scheduled run skipped: ${details.reason}`;
+        } else {
+          return details.error || 'Error during scheduled aggregation';
         }
         
       case 'schedule_update':
@@ -125,6 +150,16 @@ const AggregationLogs: React.FC = () => {
               }`}
             >
               Errors
+            </button>
+            <button
+              onClick={() => setFilter('scheduled')}
+              className={`px-3 py-1 text-sm rounded-md transition-colors ${
+                filter === 'scheduled' 
+                  ? 'bg-blue-900/40 text-blue-300' 
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              Scheduled
             </button>
           </div>
           
@@ -188,7 +223,12 @@ const AggregationLogs: React.FC = () => {
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">
                     <div className="text-sm text-white capitalize">
-                      {log.event_type.replace(/_/g, ' ')}
+                      {log.event_type === 'scheduled_aggregation' ? (
+                        <span className="flex items-center">
+                          <Calendar className="h-4 w-4 mr-1 text-blue-400" />
+                          scheduled
+                        </span>
+                      ) : log.event_type.replace(/_/g, ' ')}
                     </div>
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-400">

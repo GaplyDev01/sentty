@@ -137,44 +137,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
 
       if (!error && data.user) {
-        // Check if a profile already exists for this user
-        const { data: existingProfile, error: profileCheckError } = await supabase
-          .from('profiles')
-          .select('id')
-          .eq('id', data.user.id)
-          .single();
-          
-        if (profileCheckError && profileCheckError.code !== 'PGRST116') {
-          console.error('Error checking for existing profile:', profileCheckError);
-          return { data, error: profileCheckError };
-        }
-        
-        // Only create a profile if one doesn't exist
-        if (!existingProfile) {
-          // Set role to admin if email domain is blindvibe.com
-          const isBlindVibeEmail = email.toLowerCase().endsWith('@blindvibe.com');
-          const role = isBlindVibeEmail ? 'admin' : 'user';
-          
-          // Create profile entry
-          const { error: profileError } = await supabase
-            .from('profiles')
-            .insert({
-              id: data.user.id,
-              email,
-              username,
-              role: role,
-              created_at: new Date().toISOString()
-            });
-
-          if (profileError) {
-            console.error('Error creating profile:', profileError);
-            return { data, error: profileError };
-          }
+        try {
+          // Use the RPC function to bypass RLS and create the profile
+          await supabase.rpc('insert_user_profile', {
+            user_id: data.user.id,
+            user_email: email,
+            user_name: username,
+            user_role: email.toLowerCase().endsWith('@blindvibe.com') ? 'admin' : 'user'
+          });
           
           // Create default user preferences
           console.log('Creating default preferences for new user');
           const defaultPrefs = getDefaultPreferences(data.user.id);
           await updateUserPreferences(defaultPrefs);
+        } catch (err) {
+          console.error('Error creating profile or preferences:', err);
+          return { data, error: err };
         }
       }
 

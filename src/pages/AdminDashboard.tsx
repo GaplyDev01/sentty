@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
-import { Users, FileText, Clock, Settings, BarChart2 } from 'lucide-react';
+import { Users, FileText, Clock, Settings, BarChart2, Database, Calendar } from 'lucide-react';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { motion } from 'framer-motion';
 import { aggregationService } from '../services/aggregationService';
@@ -13,7 +13,9 @@ import AdminOverview from '../components/admin/AdminOverview';
 import UserManagement from '../components/admin/UserManagement';
 import ArticleManagement from '../components/admin/ArticleManagement';
 import AggregationManagement from '../components/admin/AggregationManagement';
+import AggregationScheduler from '../components/admin/AggregationScheduler';
 import SystemSettings from '../components/admin/SystemSettings';
+import CryptoNewsConfig from '../components/admin/CryptoNewsConfig';
 
 // Define tabs for easier maintenance
 const TABS = {
@@ -21,6 +23,8 @@ const TABS = {
   USERS: 'users',
   ARTICLES: 'articles',
   AGGREGATION: 'aggregation',
+  SCHEDULE: 'schedule',
+  CRYPTO: 'crypto',
   SETTINGS: 'settings'
 };
 
@@ -145,7 +149,21 @@ const AdminDashboard: React.FC = () => {
             isActive={activeTab === TABS.AGGREGATION} 
             onClick={() => setActiveTab(TABS.AGGREGATION)}
             icon={<Clock className="h-4 w-4 mr-2" />}
-            label="Aggregation"
+            label="Manual"
+          />
+          
+          <TabButton 
+            isActive={activeTab === TABS.SCHEDULE} 
+            onClick={() => setActiveTab(TABS.SCHEDULE)}
+            icon={<Calendar className="h-4 w-4 mr-2" />}
+            label="Scheduler"
+          />
+          
+          <TabButton 
+            isActive={activeTab === TABS.CRYPTO} 
+            onClick={() => setActiveTab(TABS.CRYPTO)}
+            icon={<Database className="h-4 w-4 mr-2" />}
+            label="Crypto News"
           />
           
           <TabButton 
@@ -185,6 +203,16 @@ const AdminDashboard: React.FC = () => {
                   systemStatus={systemStatus}
                   onRefresh={fetchData}
                 />
+              )}
+              
+              {activeTab === TABS.SCHEDULE && (
+                <AggregationScheduler 
+                  onUpdate={fetchData}
+                />
+              )}
+              
+              {activeTab === TABS.CRYPTO && (
+                <CryptoNewsConfig />
               )}
               
               {activeTab === TABS.SETTINGS && (

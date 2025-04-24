@@ -1,0 +1,17 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# Scheduled functions use this configuration
+[functions]
+  node_bundler = "esbuild"
+
+# Redirect for the app to handle client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Environment variables will be taken from the .env file
+# Don't need to specify them here since they're already in .env

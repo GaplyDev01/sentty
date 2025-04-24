@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import CoinDeskSettings from './CoinDeskSettings';
+import CryptoPanicSettings from './CryptoPanicSettings';
+import FireCrawlSettings from './FireCrawlSettings';
 
 const SystemSettings: React.FC = () => {
   const [siteName, setSiteName] = useState('SophIQ');
@@ -34,6 +37,18 @@ const SystemSettings: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
+      {/* News API Configurations */}
+      <div className="space-y-6">
+        {/* CoinDesk Settings */}
+        <CoinDeskSettings />
+        
+        {/* CryptoPanic Settings */}
+        <CryptoPanicSettings />
+        
+        {/* FireCrawl Settings */}
+        <FireCrawlSettings />
+      </div>
+      
       <div className="bg-gray-900/50 p-6 rounded-lg">
         <h3 className="text-lg font-medium text-white mb-4">System Settings</h3>
         

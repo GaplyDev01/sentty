@@ -1,0 +1,10 @@
+{
+  "name": "netlify-functions",
+  "version": "1.0.0",
+  "description": "Netlify Functions for NewsAI",
+  "main": "index.js",
+  "dependencies": {
+    "@netlify/functions": "^2.4.1",
+    "node-fetch": "^2.6.12"
+  }
+}

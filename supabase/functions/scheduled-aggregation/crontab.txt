@@ -1,0 +1,2 @@
+# Run the scheduled-aggregation function every 15 minutes
+*/15 * * * * scheduled-aggregation

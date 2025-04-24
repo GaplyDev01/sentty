@@ -1,0 +1,12 @@
+# This file configures the Netlify Functions
+# It must be in the same directory as the functions
+
+# Configure the Node.js version for functions
+[build.environment]
+  NODE_VERSION = "18.x"
+
+# Configure the function to run on a schedule
+[[functions]]
+  # The scheduled-aggregation function
+  directory = "."
+  node_bundler = "esbuild"
