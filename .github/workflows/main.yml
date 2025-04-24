@@ -1,8 +1,5 @@
 -  name: Supabase CLI Action
-  # You may pin to the exact commit or the version.
-  # uses: supabase/setup-cli@87162dc7e9322b04c79bdb81e0dce1f261097ff2
   uses: supabase/setup-cli@v1.3.0
   with:
-    # Version of Supabase CLI to install
-    version: # optional, default is 1.136.3
+    version:
           
