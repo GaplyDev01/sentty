@@ -19,7 +19,7 @@ const ImpactCta: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            Join over 2,000+ professionals getting personalized news insights daily
+            Start making an impact with better informed decisions
           </motion.h2>
           
           <motion.p
@@ -29,7 +29,7 @@ const ImpactCta: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            From Wall Street analysts to blockchain developers, our users save an average of 2 hours daily while making better informed decisions.
+            Join changemakers, social entrepreneurs, and impact professionals who use Sentro to stay ahead of the news that matters for creating positive change.
           </motion.p>
           
           <motion.div

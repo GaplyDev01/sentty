@@ -4,6 +4,7 @@ import { ExternalLink, Globe, TrendingUp, Clock, Shield } from 'lucide-react';
 import { format } from 'date-fns';
 import { useNewsTicker } from '../../contexts/NewsTickerContext';
 import NewsTickerControl from './NewsTickerControl';
+import ScrollingNewsTicker from './ScrollingNewsTicker';
 
 interface NewsItem {
   title: string;
@@ -61,7 +62,6 @@ const NewsTicker: React.FC<NewsTickerProps> = ({ className = '' }) => {
   const [pauseAnimation, setPauseAnimation] = useState(false);
   const [activeItemIndex, setActiveItemIndex] = useState(-1);
   const [highlightedItems, setHighlightedItems] = useState<Set<number>>(new Set());
-  const controls = useAnimation();
   const tickerRef = useRef<HTMLDivElement>(null);
 
   // Fetch news from the Reuters RSS feed JSON
@@ -69,13 +69,6 @@ const NewsTicker: React.FC<NewsTickerProps> = ({ className = '' }) => {
     const fetchNews = async () => {
       try {
         setLoading(true);
-        
-        // More reliable CORS proxies
-        const proxies = [
-          'https://api.allorigins.win/get?url=',
-          'https://api.codetabs.com/v1/proxy?quest=',
-          'https://corsproxy.io/?'
-        ];
         
         // First try to fetch local JSON file
         try {
@@ -142,47 +135,6 @@ const NewsTicker: React.FC<NewsTickerProps> = ({ className = '' }) => {
     return categories[Math.floor(Math.random() * categories.length)];
   };
 
-  // Handle ticker animation controls
-  useEffect(() => {
-    if (pauseAnimation) {
-      controls.stop();
-    } else {
-      controls.start({
-        x: [window.innerWidth, -getScrollWidth()],
-        transition: {
-          duration: Math.max(news.length * 5, 30), // Scale duration with content length
-          ease: "linear",
-          repeat: Infinity,
-        }
-      });
-    }
-  }, [controls, pauseAnimation, news]);
-
-  // Get the total width of the ticker content
-  const getScrollWidth = () => {
-    if (tickerRef.current) {
-      return tickerRef.current.scrollWidth;
-    }
-    return 5000; // Fallback width
-  };
-
-  // Handle mouse interactions
-  const handleMouseEnter = () => {
-    setPauseAnimation(true);
-  };
-
-  const handleMouseLeave = () => {
-    setPauseAnimation(false);
-  };
-
-  const handleItemHover = (index: number) => {
-    setActiveItemIndex(index);
-  };
-
-  const handleItemLeave = () => {
-    setActiveItemIndex(-1);
-  };
-
   // Randomly highlight items occasionally for visual interest
   useEffect(() => {
     if (news.length === 0) return;
@@ -232,66 +184,17 @@ const NewsTicker: React.FC<NewsTickerProps> = ({ className = '' }) => {
   return (
     <div 
       className={`fixed bottom-0 left-0 right-0 bg-gray-900/90 backdrop-blur-sm border-t border-blue-900/30 py-2 z-50 ${className}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => setPauseAnimation(true)}
+      onMouseLeave={() => setPauseAnimation(false)}
+      ref={tickerRef}
     >
-      <div className="relative overflow-hidden mx-auto">
-        <motion.div
-          ref={tickerRef}
-          className="whitespace-nowrap inline-flex items-center"
-          animate={controls}
-        >
-          {news.map((item, index) => (
-            <motion.a
-              key={`${index}-${item.title.substring(0, 20)}`}
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center mx-8 text-gray-300 hover:text-blue-400 transition-colors ${
-                activeItemIndex === index ? 'text-blue-300' : ''
-              } ${highlightedItems.has(index) ? 'animate-pulse' : ''}`}
-              onMouseEnter={() => handleItemHover(index)}
-              onMouseLeave={handleItemLeave}
-              whileHover={{ scale: 1.03 }}
-              transition={{ duration: 0.2 }}
-            >
-              {item.isHighImpact && (
-                <motion.span 
-                  className="mr-2 text-xs px-2 py-0.5 bg-blue-900/60 text-blue-200 rounded-full flex items-center"
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  <TrendingUp className="h-3 w-3 mr-1" /> High Impact
-                </motion.span>
-              )}
-              
-              {item.category && (
-                <span className="mr-2 text-xs px-2 py-0.5 bg-gray-800/80 text-gray-300 rounded-full">
-                  {item.category}
-                </span>
-              )}
-              
-              <span className="font-medium">
-                {item.title}
-              </span>
-              
-              <motion.span
-                className="ml-1"
-                whileHover={{ rotate: 15 }}
-              >
-                <ExternalLink className="h-3.5 w-3.5 inline" />
-              </motion.span>
-              
-              <span className="text-gray-500 ml-2 text-xs flex items-center">
-                <Clock className="h-3 w-3 mr-1" />
-                {item.pubDate ? format(new Date(item.pubDate), 'MMM dd, HH:mm') : ''}
-              </span>
-              
-              <span className="mx-8 text-blue-500">|</span>
-            </motion.a>
-          ))}
-        </motion.div>
-      </div>
+      {/* Use our custom ScrollingNewsTicker component */}
+      <ScrollingNewsTicker 
+        news={news} 
+        pauseOnHover={true}
+        speed={45}
+        className="mx-auto"
+      />
       
       <AnimatePresence>
         {pauseAnimation && (

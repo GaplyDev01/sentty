@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Star } from 'lucide-react';
 
 interface TestimonialCardProps {
@@ -19,14 +19,70 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   index,
   isHighlighted = false
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  // Motion values for tracking mouse position
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  // Spring configuration for smoother animations
+  const springConfig = { damping: 20, stiffness: 300 };
+  
+  // Transform mouse position into rotation values
+  const rotateX = useSpring(useTransform(mouseY, [0, 1], [5, -5]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-5, 5]), springConfig);
+  
+  // Transform for card hover effects
+  const scale = useSpring(isHovered ? 1.03 : 1, springConfig);
+  const y = useSpring(isHovered ? -8 : 0, springConfig);
+  
+  // Pre-compute transforms for author section to avoid conditional hook calls
+  const authorX = useTransform(mouseX, [-1, 1], [-3, 3]);
+  const authorY = useTransform(mouseY, [-1, 1], [-2, 2]);
+  
+  // Handle mouse interactions
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    
+    const rect = cardRef.current.getBoundingClientRect();
+    
+    // Calculate mouse position relative to card center (normalized from -1 to 1)
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    mouseX.set((e.clientX - centerX) / (rect.width / 2));
+    mouseY.set((e.clientY - centerY) / (rect.height / 2));
+  };
+  
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    // Reset mouse position to center
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
   return (
     <motion.div
+      ref={cardRef}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.1 * index }}
+      style={{
+        rotateX: isHovered ? rotateX : 0,
+        rotateY: isHovered ? rotateY : 0,
+        scale,
+        y,
+        transformPerspective: 1200,
+        transformStyle: "preserve-3d",
+        boxShadow: isHovered ? "0 20px 40px rgba(0,0,0,0.2)" : "0 0 0 rgba(0,0,0,0)"
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       className={`
-        rounded-xl overflow-hidden backdrop-blur-sm shadow-lg relative
+        rounded-xl overflow-hidden backdrop-blur-sm shadow-lg relative cursor-pointer
         ${isHighlighted 
           ? 'bg-blue-900/30 border border-blue-500/50' 
           : 'bg-gray-800/50 border border-gray-700/50'}
@@ -50,18 +106,41 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         <p className="text-gray-300 mb-6 relative z-10">&ldquo;{quote}&rdquo;</p>
         
         {/* Author info */}
-        <div className="flex items-center">
-          <img 
+        <motion.div 
+          className="flex items-center"
+          style={{
+            // Use pre-computed transforms and conditionally apply them
+            x: isHovered ? authorX : 0,
+            y: isHovered ? authorY : 0
+          }}
+        >
+          <motion.img 
             src={avatar} 
             alt={author} 
             className="h-12 w-12 rounded-full mr-4 object-cover border-2 border-blue-500/30"
+            whileHover={{ scale: 1.1, borderColor: "rgba(59, 130, 246, 0.6)" }}
           />
           <div>
             <h4 className="font-medium text-white">{author}</h4>
             <p className="text-sm text-gray-400">{title}</p>
           </div>
-        </div>
+        </motion.div>
       </div>
+      
+      {/* Always render the gradient overlay but conditionally set its opacity */}
+      <motion.div 
+        className="absolute inset-0 -z-10 opacity-0"
+        initial={{ opacity: 0 }}
+        animate={{ 
+          opacity: isHovered ? (isHighlighted ? 0.3 : 0.15) : 0 
+        }}
+        transition={{ duration: 0.3 }}
+        style={{
+          background: isHighlighted
+            ? 'linear-gradient(120deg, #3b82f6 0%, #4f46e5 100%)'
+            : 'linear-gradient(120deg, #4b5563 0%, #1f2937 100%)'
+        }}
+      />
     </motion.div>
   );
 };

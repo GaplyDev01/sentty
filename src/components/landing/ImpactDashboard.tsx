@@ -18,7 +18,7 @@ const ImpactDashboard: React.FC<ImpactDashboardProps> = ({
 }) => {
   return (
     <motion.div 
-      className={`bg-gray-900/70 border border-gray-800/70 rounded-xl p-6 shadow-xl ${className}`}
+      className={`bg-gray-900/70 border border-blue-500/30 rounded-xl p-6 shadow-xl ${className}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -27,15 +27,14 @@ const ImpactDashboard: React.FC<ImpactDashboardProps> = ({
       <h3 className="text-2xl font-bold text-white mb-6">Your Personal Impact Score</h3>
       
       <p className="text-gray-400 mb-6">
-        Sentro's proprietary Impact Score quantifies how each news story affects your specific circumstances. 
-        Say goodbye to information overload and focus on what truly matters to you.
+        Sentro's proprietary Impact Score quantifies how news affects sustainable development goals and communities that matter to you.
       </p>
       
       <div className="space-y-6">
         {showCareer && (
           <div>
             <div className="flex justify-between mb-1">
-              <span className="text-gray-300">Career Impact</span>
+              <span className="text-gray-300">Environmental Impact</span>
               <span className="text-white font-medium">78%</span>
             </div>
             <div className="w-full h-3 bg-gray-800 rounded-full overflow-hidden">
@@ -53,7 +52,7 @@ const ImpactDashboard: React.FC<ImpactDashboardProps> = ({
         {showInvestments && (
           <div>
             <div className="flex justify-between mb-1">
-              <span className="text-gray-300">Investments Impact</span>
+              <span className="text-gray-300">Social Change Impact</span>
               <span className="text-white font-medium">92%</span>
             </div>
             <div className="w-full h-3 bg-gray-800 rounded-full overflow-hidden">
@@ -71,7 +70,7 @@ const ImpactDashboard: React.FC<ImpactDashboardProps> = ({
         {showPersonal && (
           <div>
             <div className="flex justify-between mb-1">
-              <span className="text-gray-300">Personal Impact</span>
+              <span className="text-gray-300">Community Impact</span>
               <span className="text-white font-medium">45%</span>
             </div>
             <div className="w-full h-3 bg-gray-800 rounded-full overflow-hidden">
@@ -89,7 +88,7 @@ const ImpactDashboard: React.FC<ImpactDashboardProps> = ({
         {showIndustry && (
           <div>
             <div className="flex justify-between mb-1">
-              <span className="text-gray-300">Industry Impact</span>
+              <span className="text-gray-300">Global Impact</span>
               <span className="text-white font-medium">85%</span>
             </div>
             <div className="w-full h-3 bg-gray-800 rounded-full overflow-hidden">

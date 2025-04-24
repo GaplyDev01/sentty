@@ -6,13 +6,24 @@ import ImpactDashboard from '../components/landing/ImpactDashboard';
 import HowItWorks from '../components/landing/HowItWorks';
 import ImpactTestimonials from '../components/landing/ImpactTestimonials';
 import ImpactCta from '../components/landing/ImpactCta';
+import CanvasBackground from '../components/ui/CanvasBackground';
+import FloatingParticles from '../components/ui/FloatingParticles';
+import GlobeAnimation from '../components/ui/GlobeAnimation';
 
 const LandingPage: React.FC = () => {
   return (
     <LandingLayout>
+      {/* Canvas background with neon arcs */}
+      <CanvasBackground />
+      
+      {/* Floating particles for additional depth */}
+      <FloatingParticles count={30} opacity={0.2} speed={0.8} />
+      
       {/* Hero Section */}
       <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/30 to-transparent opacity-30 pointer-events-none"></div>
+        <div className="absolute -top-20 -right-20 opacity-20 pointer-events-none">
+          <GlobeAnimation size={500} />
+        </div>
         <LandingHero />
       </div>
       
@@ -28,14 +39,17 @@ const LandingPage: React.FC = () => {
             Your Personal Impact Score
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Sentro's proprietary Impact Score quantifies how each news story affects your specific circumstances. Say goodbye to information overload and focus on what truly matters to you.
+            Sentro's proprietary Impact Score quantifies how each news story affects causes and communities you care about. Say goodbye to information overload and focus on news that drives positive change.
           </p>
         </div>
         <ImpactDashboard />
       </div>
       
       {/* How It Works Section */}
-      <div className="mb-24">
+      <div className="mb-24 relative">
+        <div className="absolute -bottom-40 -left-40 opacity-20 pointer-events-none">
+          <GlobeAnimation size={400} color="#a855f7" />
+        </div>
         <HowItWorks />
       </div>
       
